@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WebhookController": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
