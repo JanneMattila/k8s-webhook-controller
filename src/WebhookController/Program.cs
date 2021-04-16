@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace WebhookController
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Starting K8s Webhook Controller");
+
+            var controller = new Controller();
+            await controller.ExecuteAsync(string.Empty);
         }
     }
 }
