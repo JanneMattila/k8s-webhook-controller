@@ -16,8 +16,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{736CD13B-505
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{259B7A88-0E88-44AC-97CB-AB579BD7AFD9}"
+	ProjectSection(SolutionItems) = preProject
+		deploy\WebhookCustomResourceDefinition.yaml = deploy\WebhookCustomResourceDefinition.yaml
+		deploy\WebhookExample.yaml = deploy\WebhookExample.yaml
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebhookController", "src\WebhookController\WebhookController.csproj", "{B7908C6E-8EA4-4077-B1A0-AE3C4E364D3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebhookController", "src\WebhookController\WebhookController.csproj", "{B7908C6E-8EA4-4077-B1A0-AE3C4E364D3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
