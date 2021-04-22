@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Threading.Tasks;
 
 namespace WebhookController
@@ -9,8 +10,18 @@ namespace WebhookController
         {
             Console.WriteLine("Starting K8s Webhook Controller");
 
-            var controller = new Controller();
-            await controller.ExecuteAsync(string.Empty);
+            var builder = new ConfigurationBuilder()
+#if DEBUG
+                .AddUserSecrets<Program>()
+#endif
+                .AddEnvironmentVariables();
+
+            var configuration = builder.Build();
+
+            var webhook = configuration.GetValue<string>("webhook");
+
+            var controller = new Controller(webhook);
+            await controller.ExecuteAsync();
         }
     }
 }

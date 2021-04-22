@@ -11,11 +11,11 @@ namespace WebhookController
 {
     class Controller
     {
+        private readonly HttpClient _client;
         private readonly CancellationTokenSource _cancellationTokenSource = new();
-        private readonly HttpClient _client = new();
         private readonly Kubernetes _kubernetes = new(KubernetesClientConfiguration.BuildConfigFromConfigFile());
 
-        public Controller()
+        public Controller(string webhook)
         {
             Console.CancelKeyPress += (sender, a) =>
             {
@@ -23,23 +23,30 @@ namespace WebhookController
                 Console.WriteLine("Closing down...");
                 _cancellationTokenSource.Cancel();
             };
+
+            _client = new HttpClient()
+            {
+                BaseAddress = new Uri(webhook)
+            };
         }
 
         private async void OnEvent(WatchEventType eventType, WebhookCustomResourceDefinition resource)
         {
             var json = JsonSerializer.Serialize(resource);
+            Console.WriteLine($"{eventType}: {json}");
             using var content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json);
             await _client.PostAsync($"?invoke={eventType}", content);
         }
 
         private async void OnError(Exception exception)
         {
+            Console.WriteLine($"Exception: {exception}");
             var json = JsonSerializer.Serialize(exception);
             using var content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json);
             await _client.PostAsync($"?invoke=Exception", content);
         }
 
-        public async Task ExecuteAsync(string webhook)
+        public async Task ExecuteAsync()
         {
             var watcher = await _kubernetes.WatchObjectAsync<WebhookCustomResourceDefinition>(
                 path: Contants.ApiPath,
