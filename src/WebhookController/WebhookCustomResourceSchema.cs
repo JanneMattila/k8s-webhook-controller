@@ -9,7 +9,14 @@ namespace WebhookController
             : base(new V1JSONSchemaProps(
                 definitions: new Dictionary<string, V1JSONSchemaProps>
                 {
-                    {  "uri", new V1JSONSchemaProps(type: "string") }
+                    {
+                        "spec", new V1JSONSchemaProps(
+                            type: "object",
+                            definitions: new Dictionary<string, V1JSONSchemaProps>
+                            {
+                                { "uri", new V1JSONSchemaProps(type: "string") }
+                            })
+                    }
                 }))
         {
         }

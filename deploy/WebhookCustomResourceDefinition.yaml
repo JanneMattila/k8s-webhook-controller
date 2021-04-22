@@ -12,8 +12,11 @@ spec:
       openAPIV3Schema:
         type: object
         properties:
-          uri:
-            type: string
+          spec:
+            type: object
+            properties:
+              uri:
+                type: string
   scope: Namespaced
   names:
     plural: webhooks

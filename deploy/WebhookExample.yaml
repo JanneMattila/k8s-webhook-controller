@@ -2,4 +2,5 @@ apiVersion: jannemattila.com/v1alpha1
 kind: Webhook
 metadata:
   name: contoso-echo
-uri: "https://echo.contoso.com/api/echo"
+spec:
+  uri: "https://echo.contoso.com/api/echo"
